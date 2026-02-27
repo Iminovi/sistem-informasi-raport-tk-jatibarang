@@ -23,15 +23,30 @@ class Siswa extends BaseController
     }
 
     public function simpan()
-    {
-        $this->siswaModel->save([
-            'nama_anak' => $this->request->getPost('nama_anak'),
-            'nisn'      => $this->request->getPost('nisn'),
-            'kelas'     => $this->request->getPost('kelas'),
-        ]);
+{
+    // Tangkap semua data yang dikirim dari form index.php
+    $this->siswaModel->save([
+        'nama_anak'           => $this->request->getPost('nama_anak'),
+        'nama_panggilan'      => $this->request->getPost('nama_panggilan'),
+        'nis'                 => $this->request->getPost('nis'),
+        'nisn'                => $this->request->getPost('nisn'),
+        'jenis_kelamin'       => $this->request->getPost('jenis_kelamin'),
+        'tempat_lahir'        => $this->request->getPost('tempat_lahir'),
+        'tanggal_lahir'       => $this->request->getPost('tanggal_lahir'),
+        'agama'               => $this->request->getPost('agama'),
+        'anak_ke'             => $this->request->getPost('anak_ke'),
+        'nama_orang_tua'      => $this->request->getPost('nama_orang_tua'),
+        'pekerjaan_orang_tua' => $this->request->getPost('pekerjaan_orang_tua'),
+        'alamat_jalan'        => $this->request->getPost('alamat_jalan'),
+        'desa_kelurahan'      => $this->request->getPost('desa_kelurahan'),
+        'kecamatan'           => $this->request->getPost('kecamatan'),
+        'kabupaten'           => $this->request->getPost('kabupaten'),
+        'provinsi'            => $this->request->getPost('provinsi'),
+        'kelas'               => $this->request->getPost('kelas'),
+    ]);
 
-        return redirect()->to('/siswa');
-    }
+    return redirect()->to('/siswa')->with('pesan', 'Data siswa berhasil ditambahkan.');
+}
     public function edit($id)
 {
     $data = [

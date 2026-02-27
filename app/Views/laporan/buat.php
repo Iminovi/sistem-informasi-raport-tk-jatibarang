@@ -14,7 +14,7 @@
                 <h4 class="mb-0">Input Rapor: <?= $siswa['nama_anak']; ?> (<?= $siswa['kelas']; ?>)</h4>
             </div>
             <div class="card-body">
-                <form action="<?= base_url('laporan/simpan'); ?>" method="post">
+                <form action="<?= base_url('laporan/simpan'); ?>" method="post" enctype="multipart/form-data">
                     <?= csrf_field(); ?>
                     <input type="hidden" name="id_siswa" value="<?= $siswa['id_siswa']; ?>">
                     
@@ -96,9 +96,21 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label class="fw-bold">Catatan Guru (Tambahan)</label>
-                        <textarea name="catatan_guru" class="form-control" rows="3" placeholder="Tuliskan catatan tambahan jika ada..."></textarea>
+                        <textarea name="catatan_guru" class="form-control" rows="3" placeholder="Tuliskan catatan tambahan..."></textarea>
+                    </div>
+
+                    <h5 class="text-success border-bottom pb-2">3. Administrasi & Dokumentasi</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="fw-bold">Guru Wali Kelas (Manual)</label>
+                            <input type="text" name="guru_wali" class="form-control" value="<?= session()->get('nama'); ?>" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fw-bold">Unggah Foto Kegiatan</label>
+                            <input type="file" name="foto_kegiatan" class="form-control" accept="image/*">
+                        </div>
                     </div>
 
                     <div class="d-grid gap-2">

@@ -19,63 +19,96 @@
                     </div>
                     <div class="card-body">
                         <form action="<?= base_url('siswa/simpan'); ?>" method="post">
-                            <?= csrf_field(); ?>
-                            
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Nama Lengkap</label>
-                                <input type="text" name="nama_anak" class="form-control" required placeholder="Nama sesuai ijazah/akta">
-                            </div>
+    <?= csrf_field(); ?>
+    
+    <div class="mb-3">
+        <label class="form-label small fw-bold">Nama Lengkap</label>
+        <input type="text" name="nama_anak" class="form-control" required placeholder="Sesuai Akta Kelahiran">
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">Nama Panggilan</label>
+            <input type="text" name="nama_panggilan" class="form-control" placeholder="Contoh: Dhafin">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">Jenis Kelamin</label>
+            <select name="jenis_kelamin" class="form-select">
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+            </select>
+        </div>
+    </div>
 
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <label class="form-label small fw-bold">Nama Panggilan</label>
-                                    <input type="text" name="nama_panggilan" class="form-control">
-                                </div>
-                                <div class="col-6 mb-3">
-                                    <label class="form-label small fw-bold">Jenis Kelamin</label>
-                                    <select name="jenis_kelamin" class="form-select">
-                                        <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                    </select>
-                                </div>
-                            </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">NIS (Nomor Induk)</label>
+            <input type="text" name="nis" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">NISN</label>
+            <input type="text" name="nisn" class="form-control">
+        </div>
+    </div>
 
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <label class="form-label small fw-bold">NIS</label>
-                                    <input type="text" name="nis" class="form-control">
-                                </div>
-                                <div class="col-6 mb-3">
-                                    <label class="form-label small fw-bold">NISN</label>
-                                    <input type="text" name="nisn" class="form-control">
-                                </div>
-                            </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">Tempat Lahir</label>
+            <input type="text" name="tempat_lahir" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">Tanggal Lahir</label>
+            <input type="date" name="tanggal_lahir" class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">Agama</label>
+            <input type="text" name="agama" class="form-control" value="ISLAM">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">Anak Ke-</label>
+            <input type="number" name="anak_ke" class="form-control">
+        </div>
+    </div>
 
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <label class="form-label small fw-bold">Tempat Lahir</label>
-                                    <input type="text" name="tempat_lahir" class="form-control">
-                                </div>
-                                <div class="col-6 mb-3">
-                                    <label class="form-label small fw-bold">Tanggal Lahir</label>
-                                    <input type="date" name="tanggal_lahir" class="form-control">
-                                </div>
-                            </div>
+    <div class="mb-3">
+        <label class="form-label small fw-bold">Nama Orang Tua/Wali</label>
+        <input type="text" name="nama_orang_tua" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label small fw-bold">Pekerjaan Orang Tua</label>
+        <input type="text" name="pekerjaan_orang_tua" class="form-control">
+    </div>
 
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Nama Orang Tua/Wali</label>
-                                <input type="text" name="nama_orang_tua" class="form-control">
-                            </div>
+    <div class="mb-3">
+        <label class="form-label small fw-bold">Alamat Jalan/RT/RW</label>
+        <textarea name="alamat_jalan" class="form-control" rows="2"></textarea>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">Desa/Kelurahan</label>
+            <input type="text" name="desa_kelurahan" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">Kecamatan</label>
+            <input type="text" name="kecamatan" class="form-control">
+        </div>
+    </div>
 
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Kelas</label>
-                                <input type="text" name="kelas" class="form-control" placeholder="Contoh: TK A" required>
-                            </div>
+    <div class="mb-4">
+        <label class="form-label small fw-bold">Kelas</label>
+        <select name="kelas" class="form-select" required>
+            <option value="">-- Pilih Kelas --</option>
+            <option value="TK A">TK A</option>
+            <option value="TK B">TK B</option>
+            <option value="KB">Kelompok Bermain</option>
+        </select>
+    </div>
 
-                            <button type="submit" class="btn btn-success w-100 py-2">
-                                <i class="fas fa-save me-2"></i>Simpan Data Siswa
-                            </button>
-                        </form>
+    <button type="submit" class="btn btn-primary w-100 fw-bold py-2">
+        <i class="fas fa-save me-2"></i>Simpan Data Siswa
+    </button>
+</form>
                     </div>
                 </div>
             </div>
@@ -114,6 +147,9 @@
                                             <td><span class="badge bg-info text-dark"><?= $s['kelas']; ?></span></td>
                                             <td class="text-center">
                                                 <div class="btn-group gap-1">
+                                                    <a href="<?= base_url('laporan/buat/' . $s['id_siswa']); ?>" class="btn btn-sm btn-success" title="Input Rapor Baru">
+                            <i class="fas fa-plus-circle"></i> Input Rapor
+                        </a>
                                                     <a href="<?= base_url('laporan/detail/' . $s['id_siswa']); ?>" class="btn btn-sm btn-outline-primary" title="Riwayat">
                                                         <i class="fas fa-history"></i>
                                                     </a>

@@ -14,7 +14,6 @@ class Laporan extends BaseController
     {
         $this->laporanModel = new LaporanModel();
         $this->siswaModel = new SiswaModel();
-        // Memuat helper agar fungsi get_deskripsi bisa digunakan di seluruh fungsi
         helper('rapor_helper');
     }
 
@@ -35,7 +34,17 @@ class Laporan extends BaseController
 
     public function simpan()
     {
-        // Menyimpan semua field sesuai form buat.php dan standar dokumen Word
+        // 1. Ambil File Foto
+        $fileFoto = $this->request->getFile('foto_kegiatan');
+        $namaFoto = "";
+
+        // 2. Logika Upload Gambar
+        if ($fileFoto && $fileFoto->isValid() && !$fileFoto->hasMoved()) {
+            $namaFoto = $fileFoto->getRandomName(); 
+            $fileFoto->move('uploads/rapor/', $namaFoto); 
+        }
+
+        // 3. Simpan ke Database (Lengkap dengan data yang sebelumnya hilang)
         $this->laporanModel->save([
             'id_siswa'       => $this->request->getPost('id_siswa'),
             'tanggal_lap'    => $this->request->getPost('tanggal_lap'),
@@ -46,35 +55,24 @@ class Laporan extends BaseController
             'nilai_p5'       => $this->request->getPost('nilai_p5'),
             'berat_badan'    => $this->request->getPost('berat_badan'),
             'tinggi_badan'   => $this->request->getPost('tinggi_badan'),
-            'sakit'          => $this->request->getPost('sakit'),
-            'izin'           => $this->request->getPost('izin'),
-            'alfa'           => $this->request->getPost('alfa'),
+            'lingkar_kepala' => $this->request->getPost('lingkar_kepala'), // TAMBAHKAN INI
+            'sakit'          => $this->request->getPost('sakit'),          // TAMBAHKAN INI
+            'izin'           => $this->request->getPost('izin'),           // TAMBAHKAN INI
+            'alfa'           => $this->request->getPost('alfa'),           // TAMBAHKAN INI
+            'aspek_motorik'  => $this->request->getPost('aspek_motorik'),  // TAMBAHKAN INI
+            'aspek_kognitif' => $this->request->getPost('aspek_kognitif'), // TAMBAHKAN INI
             'catatan_guru'   => $this->request->getPost('catatan_guru'),
+            'guru_wali'      => $this->request->getPost('guru_wali'),
+            'foto_kegiatan'  => $namaFoto,
             'status_validasi'=> 'pending'
         ]);
 
-        return redirect()->to('/laporan/detail/' . $this->request->getPost('id_siswa'))->with('pesan', 'Laporan berhasil disimpan dan menunggu validasi.');
-    }
-
-    public function edit($id_laporan)
-    {
-        $laporan = $this->laporanModel->find($id_laporan);
-        if (!$laporan) {
-            return redirect()->to('/siswa')->with('error', 'Laporan tidak ditemukan');
-        }
-
-        $data = [
-            'title'   => 'Edit Rapor',
-            'laporan' => $laporan,
-            'siswa'   => $this->siswaModel->find($laporan['id_siswa'])
-        ];
-
-        return view('laporan/edit', $data);
+        return redirect()->to('/siswa')->with('pesan', 'Laporan Berhasil Disimpan!');
     }
 
     public function update($id_laporan)
     {
-        // Saat update, status dikembalikan ke 'pending' agar Kepsek bisa cek ulang hasil revisi
+        // Pastikan update juga menangkap data yang lengkap
         $this->laporanModel->update($id_laporan, [
             'tanggal_lap'    => $this->request->getPost('tanggal_lap'),
             'nilai_aik'      => $this->request->getPost('nilai_aik'),
@@ -84,9 +82,12 @@ class Laporan extends BaseController
             'nilai_p5'       => $this->request->getPost('nilai_p5'),
             'berat_badan'    => $this->request->getPost('berat_badan'),
             'tinggi_badan'   => $this->request->getPost('tinggi_badan'),
+            'lingkar_kepala' => $this->request->getPost('lingkar_kepala'), // TAMBAHKAN INI
             'sakit'          => $this->request->getPost('sakit'),
             'izin'           => $this->request->getPost('izin'),
             'alfa'           => $this->request->getPost('alfa'),
+            'aspek_motorik'  => $this->request->getPost('aspek_motorik'),
+            'aspek_kognitif' => $this->request->getPost('aspek_kognitif'),
             'catatan_guru'   => $this->request->getPost('catatan_guru'),
             'status_validasi'=> 'pending' 
         ]);
@@ -111,37 +112,35 @@ class Laporan extends BaseController
 
         return redirect()->back()->with('pesan', 'Status validasi berhasil diperbarui.');
     }
-   public function cetak($id_laporan)
+public function cetak($id_laporan)
 {
-    helper('rapor_helper');
-
     $laporan = $this->laporanModel->find($id_laporan);
-    if (!$laporan) {
-        return redirect()->to('/siswa')->with('error', 'Laporan tidak ditemukan');
-    }
-
     $siswa = $this->siswaModel->find($laporan['id_siswa']);
 
+    // Fungsi sederhana untuk konversi nilai ke deskripsi
+    $getDeskripsi = function($nilai, $bidang) {
+        $teks = [
+            'A' => "Ananda menunjukkan capaian yang sangat baik dalam $bidang.",
+            'B' => "Ananda menunjukkan perkembangan yang sesuai harapan pada $bidang.",
+            'C' => "Ananda mulai berkembang dalam $bidang, perlu stimulasi lebih lanjut.",
+            'D' => "Ananda memerlukan bimbingan khusus untuk mencapai kompetensi $bidang."
+        ];
+        return $teks[$nilai] ?? "-";
+    };
+
     $data = [
-        'title'   => 'Rapor_' . $siswa['nama_anak'],
-        'siswa'   => $siswa,
-        'laporan' => $laporan,
-        // Konversi nilai A/B/C/D menjadi narasi menggunakan helper
-        'desk_aik'   => get_deskripsi('nilai_aik', $laporan['nilai_aik'], $siswa['nama_anak']),
-        'desk_cpabp' => get_deskripsi('nilai_cpabp', $laporan['nilai_cpabp'], $siswa['nama_anak']),
-        'desk_cpjd'  => get_deskripsi('nilai_cpjd', $laporan['nilai_cpjd'], $siswa['nama_anak']),
-        'desk_cpdl'  => get_deskripsi('nilai_cpdl', $laporan['nilai_cpdl'], $siswa['nama_anak']),
-        'desk_p5'    => get_deskripsi('nilai_p5', $laporan['nilai_p5'], $siswa['nama_anak']),
+        'title'     => 'Rapor ' . $siswa['nama_anak'],
+        'laporan'   => $laporan,
+        'siswa'     => $siswa,
+        // Definisikan variabel yang dicari oleh View
+        'desk_aik'   => $getDeskripsi($laporan['nilai_aik'], "Pendidikan AIK"),
+        'desk_cpabp' => $getDeskripsi($laporan['nilai_cpabp'], "Agama dan Budi Pekerti"),
+        'desk_cpjd'  => $getDeskripsi($laporan['nilai_cpjd'], "Jati Diri"),
+        'desk_cpdl'  => $getDeskripsi($laporan['nilai_cpdl'], "Literasi dan STEAM"),
+        'desk_p5'    => $getDeskripsi($laporan['nilai_p5'], "Projek P5"),
     ];
 
-    // Menghasilkan PDF
-    $html = view('laporan/pdf_view', $data);
-    $dompdf = new \Dompdf\Dompdf();
-    $dompdf->loadHtml($html);
-    $dompdf->setPaper('A4', 'portrait');
-    $dompdf->render();
-    
-    return $dompdf->stream($data['title'] . ".pdf", ["Attachment" => false]);
+    return view('laporan/pdf_view', $data);
 }
 public function detail($id_siswa)
 {
@@ -165,4 +164,5 @@ public function detail($id_siswa)
         'laporan' => $laporan
     ]);
 }
+
 }

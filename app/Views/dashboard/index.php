@@ -241,22 +241,7 @@
             <?php endif; ?>
         </div>
         <div class="dashboard-grid">
-    <?php if ($role == 'guru' || $role == 'orangtua' || $role == 'kepsek') : ?>
-    <div class="dashboard-card shadow-sm border-0 animate-in">
-        <div class="card-icon bg-info-gradient text-white">
-            <i class="fas fa-bullhorn"></i>
-        </div>
-        <div class="card-content">
-            <h3>Kegiatan & Diskusi</h3>
-            <p>Dokumentasi kegiatan sekolah dan interaksi melalui Disqus.</p>
-            <div class="d-grid gap-2">
-                <a href="<?= base_url('postingan'); ?>" class="btn btn-card">
-                    Lihat Semua Kegiatan <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-<?php endif; ?>
+    
     
     </div>
     </main>

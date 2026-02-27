@@ -91,6 +91,22 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row mt-4">
+    <div class="col-md-7">
+        <h6 class="text-dark fw-bold border-bottom pb-2">Dokumentasi Kegiatan</h6>
+        <?php if (!empty($lap['foto_kegiatan'])) : ?>
+            <img src="<?= base_url('uploads/rapor/' . $lap['foto_kegiatan']); ?>" class="img-fluid rounded shadow-sm" style="max-height: 250px;">
+        <?php else : ?>
+            <p class="text-muted small italic">Tidak ada dokumentasi foto.</p>
+        <?php endif; ?>
+    </div>
+
+    <div class="col-md-5 text-end">
+        <p class="mb-5">Jatibarang, <?= date('d F Y', strtotime($lap['tanggal_lap'])); ?><br>Guru Wali Kelas,</p>
+        <br>
+        <p><strong><u><?= $lap['guru_wali'] ?? 'Belum Diisi'; ?></u></strong></p>
+    </div>
+</div>
                                 </div>
 
                                 <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
@@ -104,6 +120,7 @@
                                         </a>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
