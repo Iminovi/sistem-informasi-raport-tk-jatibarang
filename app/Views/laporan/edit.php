@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title><?= $title; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light">
     <?= $this->include('layout/navbar'); ?>
 
@@ -21,33 +23,32 @@
                     </div>
                 <?php endif; ?>
 
-                <form action="<?= base_url('laporan/update/' . $laporan['id_laporan']); ?>" method="post">
+                <form action="<?= base_url('laporan/update/' . $laporan['id_laporan']); ?>" method="post" enctype="multipart/form-data">
                     <?= csrf_field(); ?>
                     <input type="hidden" name="id_siswa" value="<?= $siswa['id_siswa']; ?>">
-                    
+
                     <div class="mb-4">
                         <label class="fw-bold">Tanggal Laporan</label>
                         <input type="date" name="tanggal_lap" class="form-control" value="<?= $laporan['tanggal_lap']; ?>" required>
                     </div>
 
-                    <h5 class="text-primary border-bottom pb-2">1. Capaian Pembelajaran</h5>
+                    <h5 class="text-primary border-bottom pb-2">1. Capaian Pembelajaran (Opsi A-D)</h5>
                     <div class="row g-3 mb-4">
-                        <?php 
+                        <?php
                         $fields = [
-                            'nilai_aik' => 'AIK (Al-Islam, Kemuhammadiyahan)',
-                            'nilai_cpabp' => 'Nilai Agama & Budi Pekerti (CPABP)',
-                            'nilai_cpjd' => 'Jati Diri (CPJD)',
-                            'nilai_cpdl' => 'Dasar Literasi & STEAM (CPDL)',
-                            'nilai_p5' => 'Projek Profil Pelajar Pancasila (P5)'
+                            'nilai_aik' => 'Pendidikan AIK',
+                            'nilai_cpabp' => 'Agama & Budi Pekerti',
+                            'nilai_cpjd' => 'Jati Diri',
+                            'nilai_cpdl' => 'Literasi & STEAM',
+                            'nilai_p5' => 'Projek P5'
                         ];
-                        foreach ($fields as $name => $label) : ?>
-                            <div class="col-md-6">
+                        foreach ($fields as $field => $label) : ?>
+                            <div class="col-md-4">
                                 <label><?= $label; ?></label>
-                                <select name="<?= $name; ?>" class="form-select" required>
-                                    <option value="A" <?= ($laporan[$name] ?? '') == 'A' ? 'selected' : ''; ?>>A - Sangat Baik</option>
-                                    <option value="B" <?= ($laporan[$name] ?? '') == 'B' ? 'selected' : ''; ?>>B - Sesuai Harapan</option>
-                                    <option value="C" <?= ($laporan[$name] ?? '') == 'C' ? 'selected' : ''; ?>>C - Mulai Berkembang</option>
-                                    <option value="D" <?= ($laporan[$name] ?? '') == 'D' ? 'selected' : ''; ?>>D - Perlu Bimbingan</option>
+                                <select name="<?= $field; ?>" class="form-select">
+                                    <?php foreach (['A', 'B', 'C', 'D'] as $opt) : ?>
+                                        <option value="<?= $opt; ?>" <?= ($laporan[$field] == $opt) ? 'selected' : ''; ?>><?= $opt; ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                         <?php endforeach; ?>
@@ -55,31 +56,61 @@
 
                     <h5 class="text-primary border-bottom pb-2">2. Pertumbuhan & Kehadiran</h5>
                     <div class="row g-3 mb-4">
-                        <div class="col-md-3">
-                            <label>Berat Badan (kg)</label>
-                            <input type="number" step="0.1" name="berat_badan" class="form-control" value="<?= $laporan['berat_badan'] ?? ''; ?>">
+                        <div class="col-md-2">
+                            <label>Berat (kg)</label>
+                            <input type="number" step="0.1" name="berat_badan" class="form-control" value="<?= $laporan['berat_badan']; ?>">
                         </div>
-                        <div class="col-md-3">
-                            <label>Tinggi Badan (cm)</label>
-                            <input type="number" step="0.1" name="tinggi_badan" class="form-control" value="<?= $laporan['tinggi_badan'] ?? ''; ?>">
+                        <div class="col-md-2">
+                            <label>Tinggi (cm)</label>
+                            <input type="number" step="0.1" name="tinggi_badan" class="form-control" value="<?= $laporan['tinggi_badan']; ?>">
+                        </div>
+                        <div class="col-md-2">
+                            <label>L. Kepala (cm)</label>
+                            <input type="number" step="0.1" name="lingkar_kepala" class="form-control" value="<?= $laporan['lingkar_kepala'] ?? ''; ?>">
                         </div>
                         <div class="col-md-2">
                             <label>Sakit</label>
-                            <input type="number" name="sakit" class="form-control" value="<?= $laporan['sakit'] ?? 0; ?>">
+                            <input type="number" name="sakit" class="form-control" value="<?= $laporan['sakit']; ?>">
                         </div>
                         <div class="col-md-2">
                             <label>Izin</label>
-                            <input type="number" name="izin" class="form-control" value="<?= $laporan['izin'] ?? 0; ?>">
+                            <input type="number" name="izin" class="form-control" value="<?= $laporan['izin']; ?>">
                         </div>
                         <div class="col-md-2">
                             <label>Alfa</label>
-                            <input type="number" name="alfa" class="form-control" value="<?= $laporan['alfa'] ?? 0; ?>">
+                            <input type="number" name="alfa" class="form-control" value="<?= $laporan['alfa']; ?>">
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <h5 class="text-primary border-bottom pb-2">3. Narasi Perkembangan Khusus</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="fw-bold">Aspek Motorik</label>
+                            <textarea name="aspek_motorik" class="form-control" rows="3"><?= esc($laporan['aspek_motorik'] ?? ''); ?></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fw-bold">Aspek Kognitif</label>
+                            <textarea name="aspek_kognitif" class="form-control" rows="3"><?= esc($laporan['aspek_kognitif'] ?? ''); ?></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
                         <label class="fw-bold">Catatan Guru (Tambahan)</label>
                         <textarea name="catatan_guru" class="form-control" rows="3"><?= esc($laporan['catatan_guru']); ?></textarea>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="fw-bold">Guru Wali Kelas</label>
+                            <input type="text" name="guru_wali" class="form-control" value="<?= esc($laporan['guru_wali']); ?>" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fw-bold">Ganti Foto Kegiatan (Opsional)</label>
+                            <input type="file" name="foto_kegiatan" class="form-control" accept="image/*">
+                            <?php if ($laporan['foto_kegiatan']): ?>
+                                <small class="text-muted">File saat ini: <?= $laporan['foto_kegiatan']; ?></small>
+                            <?php endif; ?>
+                        </div>
                     </div>
 
                     <div class="d-grid gap-2">
@@ -91,4 +122,5 @@
         </div>
     </div>
 </body>
+
 </html>

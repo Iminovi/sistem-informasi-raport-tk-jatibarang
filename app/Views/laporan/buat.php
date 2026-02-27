@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title><?= $title; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light">
     <?= $this->include('layout/navbar'); ?>
 
@@ -17,7 +19,7 @@
                 <form action="<?= base_url('laporan/simpan'); ?>" method="post" enctype="multipart/form-data">
                     <?= csrf_field(); ?>
                     <input type="hidden" name="id_siswa" value="<?= $siswa['id_siswa']; ?>">
-                    
+
                     <div class="mb-4">
                         <label class="fw-bold">Tanggal Laporan</label>
                         <input type="date" name="tanggal_lap" class="form-control" value="<?= date('Y-m-d'); ?>" required>
@@ -94,32 +96,50 @@
                             <label>Alfa</label>
                             <input type="number" name="alfa" class="form-control" value="0">
                         </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="fw-bold">Catatan Guru (Tambahan)</label>
-                        <textarea name="catatan_guru" class="form-control" rows="3" placeholder="Tuliskan catatan tambahan..."></textarea>
-                    </div>
-
-                    <h5 class="text-success border-bottom pb-2">3. Administrasi & Dokumentasi</h5>
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-6">
-                            <label class="fw-bold">Guru Wali Kelas (Manual)</label>
-                            <input type="text" name="guru_wali" class="form-control" value="<?= session()->get('nama'); ?>" required>
+                        <div class="col-md-3">
+                            <label>Lingkar Kepala (cm)</label>
+                            <input type="number" step="0.1" name="lingkar_kepala" class="form-control">
                         </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold">Unggah Foto Kegiatan</label>
-                            <input type="file" name="foto_kegiatan" class="form-control" accept="image/*">
-                        </div>
-                    </div>
 
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-success btn-lg">Simpan Laporan Rapor</button>
-                        <a href="<?= base_url('siswa'); ?>" class="btn btn-secondary">Batal</a>
-                    </div>
+
+
+                        <h5 class="text-success border-bottom pb-2">3. Deskripsi Perkembangan Khusus</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="fw-bold">Aspek Motorik</label>
+                                <textarea name="aspek_motorik" class="form-control" rows="3" placeholder="Deskripsi perkembangan fisik/motorik..."></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="fw-bold">Aspek Kognitif</label>
+                                <textarea name="aspek_kognitif" class="form-control" rows="3" placeholder="Deskripsi perkembangan kognitif/berpikir..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="fw-bold">Catatan Guru (Tambahan)</label>
+                            <textarea name="catatan_guru" class="form-control" rows="3" placeholder="Tuliskan catatan tambahan..."></textarea>
+                        </div>
+
+                        <h5 class="text-success border-bottom pb-2">3. Administrasi & Dokumentasi</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="fw-bold">Guru Wali Kelas (Manual)</label>
+                                <input type="text" name="guru_wali" class="form-control" value="<?= session()->get('nama'); ?>" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="fw-bold">Unggah Foto Kegiatan</label>
+                                <input type="file" name="foto_kegiatan" class="form-control" accept="image/*">
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">Simpan Laporan Rapor</button>
+                            <a href="<?= base_url('siswa'); ?>" class="btn btn-secondary">Batal</a>
+                        </div>
                 </form>
             </div>
         </div>
     </div>
 </body>
+
 </html>

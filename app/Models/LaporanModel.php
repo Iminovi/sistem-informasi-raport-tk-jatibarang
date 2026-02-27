@@ -9,7 +9,7 @@ class LaporanModel extends Model {
    protected $allowedFields = [
     'id_siswa', 'tanggal_lap', 'nilai_aik', 'nilai_cpabp', 'nilai_cpjd', 
     'nilai_cpdl', 'nilai_p5', 'berat_badan', 'tinggi_badan', 'lingkar_kepala', 
-    'sakit', 'izin', 'alfa', 'catatan_guru', 
-    'guru_wali', 'foto_kegiatan' // TAMBAHKAN DUA KOLOM INI
+    'sakit', 'izin', 'alfa', 'aspek_motorik', 'aspek_kognitif', // Harus Ada!
+    'catatan_guru', 'guru_wali', 'foto_kegiatan', 'status_validasi', 'pesan_kepsek'
 ];
 }

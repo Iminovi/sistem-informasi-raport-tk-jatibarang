@@ -1,0 +1,503 @@
+/* ============================================
+   PDF LAPORAN - A4 OPTIMIZED
+   Margin: 2cm all sides
+   ============================================ */
+
+@page { 
+    margin: 2cm; 
+    size: A4 portrait;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body { 
+    font-family: "Times New Roman", Times, serif; 
+    font-size: 10pt; 
+    line-height: 1.25; 
+    color: #000;
+}
+
+.page { 
+    page-break-after: always; 
+    position: relative;
+    min-height: 257mm; /* 297mm - 4cm (2cm top + 2cm bottom) */
+    padding-bottom: 10mm;
+}
+
+.last-page { 
+    page-break-after: never; 
+}
+
+/* ============================================
+   HALAMAN 1 - HEADER
+   ============================================ */
+.header-laporan {
+    text-align: center;
+    margin-bottom: 6px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 6px;
+}
+
+.header-laporan .line1 {
+    font-size: 11pt;
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+.header-laporan .line2 {
+    font-size: 13pt;
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+.header-laporan .line3 {
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+/* ============================================
+   HALAMAN 1 - INFO SEKOLAH
+   ============================================ */
+.table-info {
+    width: 100%;
+    margin: 6px 0;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+.table-info td {
+    padding: 1px 5px;
+    font-size: 8.5pt;
+    border: none;
+}
+
+.table-info .label { width: 22%; }
+.table-info .sep { width: 2%; text-align: center; }
+.table-info .val { width: 76%; }
+
+/* ============================================
+   HALAMAN 1 - NAMA ANAK
+   ============================================ */
+.nama-section {
+    text-align: center;
+    margin: 8px 0;
+}
+
+.nama-section .label-nama {
+    font-size: 9pt;
+    margin-bottom: 2px;
+}
+
+.nama-section .val-nama {
+    font-size: 12pt;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* ============================================
+   HALAMAN 1 - PIMPINAN
+   ============================================ */
+.pimpinan {
+    text-align: center;
+    font-size: 9pt;
+    font-weight: bold;
+    margin: 6px 0;
+    line-height: 1.3;
+}
+
+/* ============================================
+   HALAMAN 1 - TABEL KETERANGAN
+   ============================================ */
+.table-keterangan {
+    width: 100%;
+    margin: 6px 0;
+    border-collapse: collapse;
+}
+
+.table-keterangan td {
+    padding: 2px 5px;
+    border: 1px solid #000;
+    font-size: 8.5pt;
+    vertical-align: top;
+}
+
+.table-keterangan .no {
+    width: 4%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.table-keterangan .label { width: 38%; }
+.table-keterangan .sep { width: 2%; text-align: center; }
+.table-keterangan .val { width: 56%; }
+
+.table-keterangan .sub td { border-top: none; }
+.table-keterangan .sub-label { padding-left: 12px; width: 38%; }
+
+.bold { font-weight: bold; }
+.upper { text-transform: uppercase; }
+
+/* ============================================
+   HALAMAN 1 - TTD
+   ============================================ */
+.ttd-hal1 {
+    margin-top: 12px;
+    position: relative;
+    height: 70px;
+}
+
+.ttd-hal1 .foto-box {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 2.2cm;
+    height: 3cm;
+    border: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 7pt;
+    text-align: center;
+}
+
+.ttd-hal1 .ttd-kanan {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    text-align: center;
+    width: 180px;
+}
+
+.ttd-hal1 .tempat { margin-bottom: 25px; font-size: 8.5pt; }
+.ttd-hal1 .jabatan { font-size: 8.5pt; line-height: 1.2; margin-bottom: 30px; }
+.ttd-hal1 .nama { font-size: 9pt; font-weight: bold; text-decoration: underline; }
+.ttd-hal1 .nbm { font-size: 8pt; margin-top: 1px; }
+
+/* ============================================
+   HALAMAN 2 - HEADER
+   ============================================ */
+.header-perkembangan {
+    text-align: center;
+    font-size: 11pt;
+    font-weight: bold;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #000;
+    padding-bottom: 4px;
+}
+
+/* ============================================
+   HALAMAN 2 - INFO DATA
+   ============================================ */
+.table-data {
+    width: 100%;
+    margin: 6px 0;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+.table-data td {
+    padding: 2px 5px;
+    border: 1px solid #000;
+    font-size: 8.5pt;
+}
+
+.table-data .label { width: 13%; font-weight: bold; }
+.table-data .sep { width: 2%; text-align: center; }
+.table-data .val { width: 35%; }
+
+/* ============================================
+   HALAMAN 2 - CAPAIAN
+   ============================================ */
+.table-capaian {
+    width: 100%;
+    margin: 6px 0;
+    border-collapse: collapse;
+}
+
+.table-capaian th,
+.table-capaian td {
+    border: 1px solid #000;
+    padding: 4px;
+    font-size: 8.5pt;
+}
+
+.table-capaian th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.table-capaian .aspek {
+    width: 22%;
+    font-weight: bold;
+    background-color: #fafafa;
+    vertical-align: top;
+}
+
+.table-capaian .deskripsi {
+    width: 78%;
+    text-align: justify;
+    vertical-align: top;
+}
+
+/* ============================================
+   HALAMAN 2 - PERTUMBUHAN
+   ============================================ */
+.table-pertumbuhan {
+    width: 100%;
+    margin: 6px 0;
+    border-collapse: collapse;
+}
+
+.table-pertumbuhan th {
+    background-color: #f0f0f0;
+    border: 1px solid #000;
+    padding: 4px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 8.5pt;
+}
+
+.table-pertumbuhan td {
+    border: 1px solid #000;
+    padding: 6px;
+    width: 50%;
+    vertical-align: top;
+}
+
+.table-pertumbuhan .title {
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 8.5pt;
+}
+
+.table-pertumbuhan .item {
+    margin-bottom: 2px;
+    font-size: 8.5pt;
+}
+
+/* ============================================
+   HALAMAN 2 - URAIAN
+   ============================================ */
+.table-uraian {
+    width: 100%;
+    margin: 6px 0;
+    border-collapse: collapse;
+}
+
+.table-uraian th {
+    background-color: #f0f0f0;
+    border: 1px solid #000;
+    padding: 4px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 8.5pt;
+}
+
+.table-uraian td {
+    border: 1px solid #000;
+    padding: 4px;
+    font-size: 8.5pt;
+}
+
+.table-uraian .aspek {
+    width: 22%;
+    font-weight: bold;
+    background-color: #fafafa;
+    vertical-align: top;
+}
+
+.table-uraian .deskripsi {
+    width: 78%;
+    vertical-align: top;
+}
+
+/* ============================================
+   HALAMAN 2 - REFLEKSI
+   ============================================ */
+.refleksi {
+    border: 1px solid #000;
+    margin: 6px 0;
+}
+
+.refleksi .title {
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #000;
+    padding: 4px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 8.5pt;
+}
+
+.refleksi .content {
+    padding: 8px;
+    min-height: 30px;
+    font-size: 8.5pt;
+}
+
+/* ============================================
+   HALAMAN 2 - TTD
+   ============================================ */
+.ttd-tanggal {
+    text-align: right;
+    font-style: italic;
+    font-size: 8.5pt;
+    margin: 8px 0 4px;
+}
+
+.ttd-hal2 {
+    width: 100%;
+    margin-top: 4px;
+}
+
+.ttd-hal2 td {
+    width: 50%;
+    text-align: center;
+    vertical-align: top;
+    padding: 4px;
+}
+
+.ttd-hal2 .jabatan {
+    font-size: 8.5pt;
+    line-height: 1.2;
+    margin-bottom: 45px;
+}
+
+.ttd-hal2 .nama {
+    font-size: 9pt;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.ttd-hal2 .nbm {
+    font-size: 8pt;
+    margin-top: 1px;
+}
+
+/* ============================================
+   HALAMAN 3 - HEADER
+   ============================================ */
+.header-dokumentasi {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.header-dokumentasi .title {
+    font-size: 11pt;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.header-dokumentasi .subtitle {
+    font-size: 9pt;
+    font-style: italic;
+}
+
+/* ============================================
+   HALAMAN 3 - FOTO
+   ============================================ */
+.foto-wrap {
+    text-align: center;
+    margin: 12px 0;
+}
+
+.foto-wrap img {
+    max-width: 80%;
+    max-height: 150mm; /* Batasi tinggi agar tidak overflow */
+    border: 1px solid #000;
+}
+
+.foto-wrap .keterangan {
+    margin-top: 6px;
+    font-size: 8.5pt;
+    font-style: italic;
+}
+
+.foto-grid {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.foto-grid .placeholder {
+    width: 30%;
+    height: 100px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8pt;
+    color: #666;
+}
+
+/* ============================================
+   HALAMAN 3 - TTD
+   ============================================ */
+.ttd-hal3 {
+    width: 100%;
+    margin-top: 15px;
+    position: absolute;
+    bottom: 5mm;
+}
+
+.ttd-hal3 td {
+    width: 50%;
+    text-align: center;
+    vertical-align: top;
+    padding: 4px;
+}
+
+.ttd-hal3 .jabatan {
+    font-size: 8.5pt;
+    line-height: 1.2;
+    margin-bottom: 4px;
+}
+
+.ttd-hal3 .tempat {
+    font-size: 8.5pt;
+    margin-bottom: 4px;
+}
+
+.ttd-hal3 .garis {
+    height: 45px;
+    border-bottom: 1px solid #000;
+    width: 140px;
+    margin: 0 auto 4px;
+}
+
+.ttd-hal3 .nama {
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+/* ============================================
+   PRINT OPTIMIZATION
+   ============================================ */
+@media print {
+    body {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .page {
+        page-break-inside: avoid;
+    }
+    
+    table {
+        page-break-inside: avoid;
+    }
+    
+    tr {
+        page-break-inside: avoid;
+    }
+    
+    .foto-wrap img {
+        max-height: 140mm;
+    }
+}
