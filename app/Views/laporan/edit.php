@@ -104,15 +104,20 @@
                             <label class="fw-bold">Guru Wali Kelas</label>
                             <input type="text" name="guru_wali" class="form-control" value="<?= esc($laporan['guru_wali']); ?>" required>
                         </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold">Ganti Foto Kegiatan (Opsional)</label>
-                            <input type="file" name="foto_kegiatan" class="form-control" accept="image/*">
-                            <?php if ($laporan['foto_kegiatan']): ?>
-                                <small class="text-muted">File saat ini: <?= $laporan['foto_kegiatan']; ?></small>
-                            <?php endif; ?>
-                        </div>
+                       
                     </div>
-
+<h5 class="text-success border-bottom pb-2 mt-4">3. Dokumentasi Kegiatan (Maksimal 6 Foto)</h5>
+<div class="row g-3 mb-4">
+    <?php for ($i = 1; $i <= 6; $i++) : ?>
+        <div class="col-md-4">
+            <label class="fw-bold">Foto Kegiatan <?= $i; ?></label>
+            <input type="file" name="foto<?= $i; ?>" class="form-control" accept="image/*">
+            <?php if (isset($laporan["foto$i"]) && $laporan["foto$i"]) : ?>
+                <small class="text-muted">File saat ini: <?= $laporan["foto$i"]; ?></small>
+            <?php endif; ?>
+        </div>
+    <?php endfor; ?>
+</div>
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg text-white">Simpan Perubahan Rapor</button>
                         <a href="<?= base_url('laporan/detail/' . $siswa['id_siswa']); ?>" class="btn btn-secondary">Batal</a>

@@ -126,12 +126,20 @@
                                 <label class="fw-bold">Guru Wali Kelas (Manual)</label>
                                 <input type="text" name="guru_wali" class="form-control" value="<?= session()->get('nama'); ?>" required>
                             </div>
-                            <div class="col-md-6">
-                                <label class="fw-bold">Unggah Foto Kegiatan</label>
-                                <input type="file" name="foto_kegiatan" class="form-control" accept="image/*">
-                            </div>
+                            
                         </div>
-
+<h5 class="text-success border-bottom pb-2 mt-4">3. Dokumentasi Kegiatan (Maksimal 6 Foto)</h5>
+<div class="row g-3 mb-4">
+    <?php for ($i = 1; $i <= 6; $i++) : ?>
+        <div class="col-md-4">
+            <label class="fw-bold">Foto Kegiatan <?= $i; ?></label>
+            <input type="file" name="foto<?= $i; ?>" class="form-control" accept="image/*">
+            <?php if (isset($laporan["foto$i"]) && $laporan["foto$i"]) : ?>
+                <small class="text-muted">File saat ini: <?= $laporan["foto$i"]; ?></small>
+            <?php endif; ?>
+        </div>
+    <?php endfor; ?>
+</div>
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-success btn-lg">Simpan Laporan Rapor</button>
                             <a href="<?= base_url('siswa'); ?>" class="btn btn-secondary">Batal</a>
